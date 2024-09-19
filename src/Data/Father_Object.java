@@ -68,6 +68,12 @@ public class Father_Object {
         this.Number_Pages = Number_Pages;
     }
     
+    public void Show_Details() {
+        
+    }
     
+//    public int Return_Cost() {
+//        
+//    }
     
 }
