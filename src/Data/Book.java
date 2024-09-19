@@ -17,7 +17,7 @@ public class Book extends Father_Object {
 
     }
 
-    public Book(String ISBN, String Genre, String Title, String Author, int Publication_Year, String Editorial, String Number_Pages) {
+    public Book(String ISBN, String Genre, String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
         super(Title, Author, Publication_Year, Editorial, Number_Pages);
         this.ISBN = ISBN;
         this.Genre = Genre;

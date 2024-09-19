@@ -11,14 +11,14 @@ package Data;
 public class Magazine extends Father_Object {
     
     String Publication_Month;
-    String Edition_Number;
+    int Edition_Number;
     String Main_Theme;
     
     public Magazine() {
         
     }
 
-    public Magazine(String Publication_Month, String Edition_Number, String Main_Theme, String Title, String Author, int Publication_Year, String Editorial, String Number_Pages) {
+    public Magazine(String Publication_Month, int Edition_Number, String Main_Theme, String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
         super(Title, Author, Publication_Year, Editorial, Number_Pages);
         this.Publication_Month = Publication_Month;
         this.Edition_Number = Edition_Number;
@@ -33,11 +33,11 @@ public class Magazine extends Father_Object {
         this.Publication_Month = Publication_Month;
     }
 
-    public String getEdition_Number() {
+    public int getEdition_Number() {
         return Edition_Number;
     }
 
-    public void setEdition_Number(String Edition_Number) {
+    public void setEdition_Number(int Edition_Number) {
         this.Edition_Number = Edition_Number;
     }
 

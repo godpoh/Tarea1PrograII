@@ -14,13 +14,13 @@ public class Father_Object {
     String Author;
     int Publication_Year;
     String Editorial;
-    String Number_Pages;
+    int Number_Pages;
     
     public Father_Object() {
         
     }
 
-    public Father_Object(String Title, String Author, int Publication_Year, String Editorial, String Number_Pages) {
+    public Father_Object(String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
         this.Title = Title;
         this.Author = Author;
         this.Publication_Year = Publication_Year;
@@ -60,11 +60,11 @@ public class Father_Object {
         this.Editorial = Editorial;
     }
 
-    public String getNumber_Pages() {
+    public int getNumber_Pages() {
         return Number_Pages;
     }
 
-    public void setNumber_Pages(String Number_Pages) {
+    public void setNumber_Pages(int Number_Pages) {
         this.Number_Pages = Number_Pages;
     }
     

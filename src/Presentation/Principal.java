@@ -4,6 +4,13 @@
  */
 package Presentation;
 
+import Data.Book;
+import Data.Magazine;
+import Data.Scientific_Article;
+import Logic.SaveInformation;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  *
  * @author user
@@ -15,6 +22,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         Hide_Items_Defualt();
         setupRdEventListeners();
+        Load_Genres_Cmb();
     }
 
     private void Hide_Items_Defualt() {
@@ -46,7 +54,6 @@ public class Principal extends javax.swing.JFrame {
             P_Book.setVisible(true);
             P_Magazine.setVisible(false);
             P_Scientific_Article.setVisible(false);
-
         }
         if (Rd_Magazine.isSelected()) {
             P_Book.setVisible(false);
@@ -94,22 +101,61 @@ public class Principal extends javax.swing.JFrame {
         });
     }
 
-    private void Obtain_Data_And_Save() {
+    private void Load_Genres_Cmb() {
+        SaveInformation save_info = new SaveInformation();
+        HashMap<String, String> Genres = save_info.Get_HashMap_Genres();
+        for (String genre : Genres.keySet()) {
+            Cmb_Genre.addItem(genre);
+        }
+    }
+
+    private void Load_Publications_Cmb() {
+        SaveInformation save_info = new SaveInformation();
+        
+        
         if (Rd_Book.isSelected()) {
-            String Title = Txt_Title_Book.getText();
+            ArrayList<Book> Books = save_info.Get_Array_Books();
+            for (Book book : Books) {
+                Cmb_Book.addItem(book.getTitle());
+                System.out.println("anadidodooo");
+            }
+        }
+        if (Rd_Magazine.isSelected()) {
+            ArrayList<Magazine> Magazines = save_info.Get_Array_Magazine();
+            for (Magazine magazine : Magazines) {
+                Cmb_Book.addItem(magazine.getTitle());
+                System.out.println("anadidodooo");
+            }
+        }
+        if (Rd_Scientific.isSelected()) {
+            ArrayList<Scientific_Article> scientifics = save_info.Get_Array_Scientific_Article();
+            for (Scientific_Article scientific : scientifics) {
+                Cmb_Book.addItem(scientific.getTitle());
+                System.out.println("anadidodooo");
+            }
+        }
+    }
+
+    private void Obtain_Data_And_Save() {
+        SaveInformation Save_Info = new SaveInformation();
+        if (Rd_Book.isSelected()) {
+            String Title = Txt_Title_Book.getText() + "(Libro)";
             String Author = Txt_Autor_Book.getText();
             int Year_Publication = Integer.parseInt(Txt_Publication_Year_Book.getText());
             String Editorial = Txt_Editorial_Book.getText();
             int Pages_Number = Integer.parseInt(Txt_Number_Pages_Book.getText());
             String ISBN = Txt_ISBN_Book.getText();
             String Genre = (String) Cmb_Book.getSelectedItem();
-            
-            
-            
-            
+
+            Book book = new Book(ISBN, Genre, Title, Author, Year_Publication, Editorial, Pages_Number);
+            Save_Info.Add_Book(book);
+
+            Load_Publications_Cmb();
+            System.out.println("Guardado");
+
         }
         if (Rd_Magazine.isSelected()) {
-            String Title = Txt_Title_Magazine.getText();
+            String Title = Txt_Title_Magazine.getText() + "(Revista)";
             String Author = Txt_Author_Magazine.getText();
             int Year_Publication = Integer.parseInt(Txt_Publication_Year_Magazine.getText());
             String Editorial = Txt_Editorial_Magazine.getText();
@@ -117,10 +163,10 @@ public class Principal extends javax.swing.JFrame {
             String Month_Publication = Txt_Publication_Month_Magazine.getText();
             int Edition_Number = Integer.parseInt(Txt_Edition_Number_Magazine.getText());
             String Main_Theme = Txt_Main_Theme_Magazine.getText();
-            
-            
-            
-            
+
+            Magazine magazine = new Magazine(Month_Publication, Edition_Number, Main_Theme, Title, Author, Year_Publication, Editorial, Pages_Number);
+            Save_Info.Add_Magazine(magazine);
+
         }
         if (Rd_Scientific.isSelected()) {
             String Title = Txt_Title_Scientific.getText() + "(Artículo Científico)";
@@ -130,9 +176,10 @@ public class Principal extends javax.swing.JFrame {
             int Pages_Number = Integer.parseInt(Txt_Number_Pages_Scientific.getText());
             String ORCID = Txt_ORCID_Scientific.getText();
             String Academic_Journal = Txt_Academic_Journal.getText();
-            
-            
-            
+
+            Scientific_Article scientific_article = new Scientific_Article(ORCID, Academic_Journal, Title, Author, Year_Publication, Editorial, Pages_Number);
+            Save_Info.Add_Scientific_Article(scientific_article);
+
         }
     }
 
@@ -400,10 +447,10 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(Cmb_Genre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        getContentPane().add(P_Book, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 330, 230));
+        getContentPane().add(P_Book, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 330, 240));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Titulo:");
