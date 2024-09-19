@@ -4,6 +4,8 @@
  */
 package Data;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
@@ -68,12 +70,13 @@ public class Father_Object {
         this.Number_Pages = Number_Pages;
     }
     
-    public void Show_Details() {
-        
+    public void Show_Details(String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
+        JOptionPane.showMessageDialog(null, "Titulo de la publicacion es: " + Title + " Autor es: " + Author + " Año de publicacion es: " + Publication_Year + " Editorial es: " + Editorial + " Numero de paginas es: " + Number_Pages, "Informacion", JOptionPane.INFORMATION_MESSAGE);
     }
     
-//    public int Return_Cost() {
-//        
-//    }
+    public int Return_Cost(int QuantitySheets) {
+        return QuantitySheets * 116;
+    }
+    
     
 }

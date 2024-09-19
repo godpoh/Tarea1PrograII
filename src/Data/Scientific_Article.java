@@ -38,7 +38,7 @@ public class Scientific_Article extends Father_Object {
     public void setAcademic_Journal(String Academic_Journal) {
         this.Academic_Journal = Academic_Journal;
     }
-    
+
     
     
 }

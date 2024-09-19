@@ -5,11 +5,13 @@
 package Presentation;
 
 import Data.Book;
+import Data.Father_Object;
 import Data.Magazine;
 import Data.Scientific_Article;
 import Logic.SaveInformation;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +26,8 @@ public class Principal extends javax.swing.JFrame {
         setupRdEventListeners();
         Load_Genres_Cmb();
     }
+
+    private SaveInformation save_info = new SaveInformation();
 
     private void Hide_Items_Defualt() {
         P_Show_Information.setVisible(false);
@@ -85,24 +89,26 @@ public class Principal extends javax.swing.JFrame {
         Rd_Book.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Select_Book_Magazine_Sciencific();
+                Load_Publications_Cmb();
             }
         });
 
         Rd_Magazine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Select_Book_Magazine_Sciencific();
+                Load_Publications_Cmb();
             }
         });
 
         Rd_Scientific.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Select_Book_Magazine_Sciencific();
+                Load_Publications_Cmb();
             }
         });
     }
 
     private void Load_Genres_Cmb() {
-        SaveInformation save_info = new SaveInformation();
         HashMap<String, String> Genres = save_info.Get_HashMap_Genres();
         for (String genre : Genres.keySet()) {
             Cmb_Genre.addItem(genre);
@@ -110,34 +116,58 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void Load_Publications_Cmb() {
-        SaveInformation save_info = new SaveInformation();
-        
-        
+        Cmb_Book.removeAllItems();
+        Cmb_Book.addItem("Seleccione una opción:");
+
         if (Rd_Book.isSelected()) {
+
             ArrayList<Book> Books = save_info.Get_Array_Books();
             for (Book book : Books) {
                 Cmb_Book.addItem(book.getTitle());
-                System.out.println("anadidodooo");
             }
         }
         if (Rd_Magazine.isSelected()) {
+
             ArrayList<Magazine> Magazines = save_info.Get_Array_Magazine();
             for (Magazine magazine : Magazines) {
                 Cmb_Book.addItem(magazine.getTitle());
-                System.out.println("anadidodooo");
             }
         }
         if (Rd_Scientific.isSelected()) {
+
             ArrayList<Scientific_Article> scientifics = save_info.Get_Array_Scientific_Article();
             for (Scientific_Article scientific : scientifics) {
                 Cmb_Book.addItem(scientific.getTitle());
-                System.out.println("anadidodooo");
             }
         }
     }
 
+    private void Clean_Txt_Data() {
+        Txt_Title_Book.setText("");
+        Txt_Autor_Book.setText("");
+        Txt_Publication_Year_Book.setText("");
+        Txt_Editorial_Book.setText("");
+        Txt_Number_Pages_Book.setText("");
+        Txt_ISBN_Book.setText("");
+        Txt_Title_Magazine.setText("");
+        Txt_Author_Magazine.setText("");
+        Txt_Publication_Year_Magazine.setText("");
+        Txt_Editorial_Magazine.setText("");
+        Txt_Number_Pages_Magazine.setText("");
+        Txt_Publication_Month_Magazine.setText("");
+        Txt_Edition_Number_Magazine.setText("");
+        Txt_Main_Theme_Magazine.setText("");
+        Txt_Title_Scientific.setText("");
+        Txt_Author_Scientific.setText("");
+        Txt_Publication_Year_Scientific.setText("");
+        Txt_Editorial_Scientific.setText("");
+        Txt_Number_Pages_Scientific.setText("");
+        Txt_ORCID_Scientific.setText("");
+        Txt_Academic_Journal.setText("");
+
+    }
+
     private void Obtain_Data_And_Save() {
-        SaveInformation Save_Info = new SaveInformation();
         if (Rd_Book.isSelected()) {
             String Title = Txt_Title_Book.getText() + "(Libro)";
             String Author = Txt_Autor_Book.getText();
@@ -148,10 +178,11 @@ public class Principal extends javax.swing.JFrame {
             String Genre = (String) Cmb_Book.getSelectedItem();
 
             Book book = new Book(ISBN, Genre, Title, Author, Year_Publication, Editorial, Pages_Number);
-            Save_Info.Add_Book(book);
+            save_info.Add_Book(book);
 
             Load_Publications_Cmb();
-            System.out.println("Guardado");
+            Show_Information(Title, Author, Year_Publication, Editorial, Pages_Number);
+            Clean_Txt_Data();
 
         }
         if (Rd_Magazine.isSelected()) {
@@ -165,7 +196,10 @@ public class Principal extends javax.swing.JFrame {
             String Main_Theme = Txt_Main_Theme_Magazine.getText();
 
             Magazine magazine = new Magazine(Month_Publication, Edition_Number, Main_Theme, Title, Author, Year_Publication, Editorial, Pages_Number);
-            Save_Info.Add_Magazine(magazine);
+            save_info.Add_Magazine(magazine);
+
+            Load_Publications_Cmb();
+            Clean_Txt_Data();
 
         }
         if (Rd_Scientific.isSelected()) {
@@ -178,11 +212,21 @@ public class Principal extends javax.swing.JFrame {
             String Academic_Journal = Txt_Academic_Journal.getText();
 
             Scientific_Article scientific_article = new Scientific_Article(ORCID, Academic_Journal, Title, Author, Year_Publication, Editorial, Pages_Number);
-            Save_Info.Add_Scientific_Article(scientific_article);
+            save_info.Add_Scientific_Article(scientific_article);
+
+            Load_Publications_Cmb();
+            Clean_Txt_Data();
 
         }
     }
-
+    
+    private void Show_Information(String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
+        Father_Object father = new Father_Object();
+        father.Show_Details(Title, Author, Publication_Year, Editorial, Number_Pages);
+        int cost = father.Return_Cost(Number_Pages);
+        JOptionPane.showMessageDialog(null, "El costo del libro seria de: " + cost + " colones debido a que cada pagina tiene un precio de 116 colones.");
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -375,6 +419,10 @@ public class Principal extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel17.setText("Género:");
 
+        Txt_ISBN_Book.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        Cmb_Genre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout P_BookLayout = new javax.swing.GroupLayout(P_Book);
         P_Book.setLayout(P_BookLayout);
         P_BookLayout.setHorizontalGroup(
@@ -447,7 +495,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(Cmb_Genre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         getContentPane().add(P_Book, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 330, 240));
