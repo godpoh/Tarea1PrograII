@@ -38,6 +38,7 @@ public class Principal extends javax.swing.JFrame {
         P_Scientific_Article.setVisible(false);
 
         Btn_Save.setVisible(false);
+        P_Basic_Information.setVisible(false);
 
     }
 
@@ -58,16 +59,19 @@ public class Principal extends javax.swing.JFrame {
             P_Book.setVisible(true);
             P_Magazine.setVisible(false);
             P_Scientific_Article.setVisible(false);
+            P_Basic_Information.setVisible(true);
         }
         if (Rd_Magazine.isSelected()) {
             P_Book.setVisible(false);
             P_Magazine.setVisible(true);
             P_Scientific_Article.setVisible(false);
+            P_Basic_Information.setVisible(true);
         }
         if (Rd_Scientific.isSelected()) {
             P_Book.setVisible(false);
             P_Magazine.setVisible(false);
             P_Scientific_Article.setVisible(true);
+            P_Basic_Information.setVisible(true);
         }
     }
 
@@ -143,37 +147,27 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void Clean_Txt_Data() {
-        Txt_Title_Book.setText("");
-        Txt_Autor_Book.setText("");
-        Txt_Publication_Year_Book.setText("");
-        Txt_Editorial_Book.setText("");
-        Txt_Number_Pages_Book.setText("");
+        Txt_Title.setText("");
+        Txt_Author.setText("");
+        Txt_Publication_Year.setText("");
+        Txt_Editorial.setText("");
+        Txt_Number_Pages.setText("");
         Txt_ISBN_Book.setText("");
-        Txt_Title_Magazine.setText("");
-        Txt_Author_Magazine.setText("");
-        Txt_Publication_Year_Magazine.setText("");
-        Txt_Editorial_Magazine.setText("");
-        Txt_Number_Pages_Magazine.setText("");
         Txt_Publication_Month_Magazine.setText("");
         Txt_Edition_Number_Magazine.setText("");
         Txt_Main_Theme_Magazine.setText("");
-        Txt_Title_Scientific.setText("");
-        Txt_Author_Scientific.setText("");
-        Txt_Publication_Year_Scientific.setText("");
-        Txt_Editorial_Scientific.setText("");
-        Txt_Number_Pages_Scientific.setText("");
         Txt_ORCID_Scientific.setText("");
         Txt_Academic_Journal.setText("");
-
     }
 
     private void Obtain_Data_And_Save() {
+        String Title = Txt_Title.getText();
+        String Author = Txt_Author.getText();
+        int Year_Publication = Integer.parseInt(Txt_Publication_Year.getText());
+        String Editorial = Txt_Editorial.getText();
+        int Pages_Number = Integer.parseInt(Txt_Number_Pages.getText());
         if (Rd_Book.isSelected()) {
-            String Title = Txt_Title_Book.getText() + "(Libro)";
-            String Author = Txt_Autor_Book.getText();
-            int Year_Publication = Integer.parseInt(Txt_Publication_Year_Book.getText());
-            String Editorial = Txt_Editorial_Book.getText();
-            int Pages_Number = Integer.parseInt(Txt_Number_Pages_Book.getText());
+
             String ISBN = Txt_ISBN_Book.getText();
             String Genre = (String) Cmb_Book.getSelectedItem();
 
@@ -183,14 +177,9 @@ public class Principal extends javax.swing.JFrame {
             Load_Publications_Cmb();
             Show_Information(Title, Author, Year_Publication, Editorial, Pages_Number);
             Clean_Txt_Data();
-
         }
         if (Rd_Magazine.isSelected()) {
-            String Title = Txt_Title_Magazine.getText() + "(Revista)";
-            String Author = Txt_Author_Magazine.getText();
-            int Year_Publication = Integer.parseInt(Txt_Publication_Year_Magazine.getText());
-            String Editorial = Txt_Editorial_Magazine.getText();
-            int Pages_Number = Integer.parseInt(Txt_Number_Pages_Magazine.getText());
+
             String Month_Publication = Txt_Publication_Month_Magazine.getText();
             int Edition_Number = Integer.parseInt(Txt_Edition_Number_Magazine.getText());
             String Main_Theme = Txt_Main_Theme_Magazine.getText();
@@ -200,14 +189,9 @@ public class Principal extends javax.swing.JFrame {
 
             Load_Publications_Cmb();
             Clean_Txt_Data();
-
         }
         if (Rd_Scientific.isSelected()) {
-            String Title = Txt_Title_Scientific.getText() + "(Artículo Científico)";
-            String Author = Txt_Author_Scientific.getText();
-            int Year_Publication = Integer.parseInt(Txt_Publication_Year_Scientific.getText());
-            String Editorial = Txt_Editorial_Scientific.getText();
-            int Pages_Number = Integer.parseInt(Txt_Number_Pages_Scientific.getText());
+
             String ORCID = Txt_ORCID_Scientific.getText();
             String Academic_Journal = Txt_Academic_Journal.getText();
 
@@ -216,17 +200,20 @@ public class Principal extends javax.swing.JFrame {
 
             Load_Publications_Cmb();
             Clean_Txt_Data();
-
         }
     }
-    
+
     private void Show_Information(String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
+        
         Father_Object father = new Father_Object();
         father.Show_Details(Title, Author, Publication_Year, Editorial, Number_Pages);
+        
         int cost = father.Return_Cost(Number_Pages);
         JOptionPane.showMessageDialog(null, "El costo del libro seria de: " + cost + " colones debido a que cada pagina tiene un precio de 116 colones.");
+        
+        
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -244,31 +231,11 @@ public class Principal extends javax.swing.JFrame {
         Rd_Magazine = new javax.swing.JRadioButton();
         Rd_Scientific = new javax.swing.JRadioButton();
         P_Book = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        Txt_Title_Book = new javax.swing.JTextField();
-        Txt_Autor_Book = new javax.swing.JTextField();
-        Txt_Publication_Year_Book = new javax.swing.JTextField();
-        Txt_Editorial_Book = new javax.swing.JTextField();
-        Txt_Number_Pages_Book = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         Txt_ISBN_Book = new javax.swing.JTextField();
         Cmb_Genre = new javax.swing.JComboBox<>();
         P_Magazine = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        Txt_Title_Magazine = new javax.swing.JTextField();
-        Txt_Author_Magazine = new javax.swing.JTextField();
-        Txt_Publication_Year_Magazine = new javax.swing.JTextField();
-        Txt_Editorial_Magazine = new javax.swing.JTextField();
-        Txt_Number_Pages_Magazine = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         Txt_Main_Theme_Magazine = new javax.swing.JTextField();
         Txt_Edition_Number_Magazine = new javax.swing.JTextField();
@@ -276,21 +243,22 @@ public class Principal extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         Txt_Publication_Month_Magazine = new javax.swing.JTextField();
         P_Scientific_Article = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        Txt_Title_Scientific = new javax.swing.JTextField();
-        Txt_Author_Scientific = new javax.swing.JTextField();
-        Txt_Publication_Year_Scientific = new javax.swing.JTextField();
-        Txt_Editorial_Scientific = new javax.swing.JTextField();
-        Txt_Number_Pages_Scientific = new javax.swing.JTextField();
         Txt_Academic_Journal = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         Txt_ORCID_Scientific = new javax.swing.JTextField();
         Btn_Save = new javax.swing.JButton();
+        P_Basic_Information = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        Txt_Title = new javax.swing.JTextField();
+        Txt_Author = new javax.swing.JTextField();
+        Txt_Publication_Year = new javax.swing.JTextField();
+        Txt_Editorial = new javax.swing.JTextField();
+        Txt_Number_Pages = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -388,31 +356,6 @@ public class Principal extends javax.swing.JFrame {
 
         getContentPane().add(P_3_Rd, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 260, 30));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Titulo:");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("Autor:");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("Año de Publicación:");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Editorial:");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("Número de paginas:");
-
-        Txt_Title_Book.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        Txt_Autor_Book.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        Txt_Publication_Year_Book.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        Txt_Editorial_Book.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        Txt_Number_Pages_Book.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("ISBN:");
 
@@ -431,63 +374,19 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(P_BookLayout.createSequentialGroup()
-                        .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Txt_Title_Book)
-                            .addComponent(Txt_Autor_Book)))
-                    .addGroup(P_BookLayout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Txt_ISBN_Book))
-                    .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(P_BookLayout.createSequentialGroup()
-                            .addComponent(jLabel17)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(Cmb_Genre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(P_BookLayout.createSequentialGroup()
-                            .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(P_BookLayout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Txt_Publication_Year_Book))
-                                .addGroup(P_BookLayout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Txt_Editorial_Book))
-                                .addGroup(P_BookLayout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Txt_Number_Pages_Book, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)))
-                            .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(P_BookLayout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Cmb_Genre, 0, 257, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         P_BookLayout.setVerticalGroup(
             P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(P_BookLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(Txt_Title_Book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(Txt_Autor_Book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_Publication_Year_Book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_Editorial_Book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Txt_Number_Pages_Book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(Txt_ISBN_Book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -495,35 +394,10 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(Cmb_Genre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        getContentPane().add(P_Book, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 330, 240));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Titulo:");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setText("Autor:");
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setText("Año de Publicación:");
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel9.setText("Editorial:");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel10.setText("Número de paginas:");
-
-        Txt_Title_Magazine.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        Txt_Author_Magazine.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        Txt_Publication_Year_Magazine.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        Txt_Editorial_Magazine.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        Txt_Number_Pages_Magazine.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        getContentPane().add(P_Book, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 330, 90));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("Tema Principal:");
@@ -545,70 +419,26 @@ public class Principal extends javax.swing.JFrame {
         P_MagazineLayout.setHorizontalGroup(
             P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(P_MagazineLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(P_MagazineLayout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(Txt_Publication_Year_Magazine))
-                        .addGroup(P_MagazineLayout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(Txt_Editorial_Magazine))
-                        .addGroup(P_MagazineLayout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(Txt_Number_Pages_Magazine, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(P_MagazineLayout.createSequentialGroup()
-                        .addGroup(P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6))
+                        .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Txt_Title_Magazine)
-                            .addComponent(Txt_Author_Magazine)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, P_MagazineLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(P_MagazineLayout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Txt_Publication_Month_Magazine))
-                            .addGroup(P_MagazineLayout.createSequentialGroup()
-                                .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Txt_Edition_Number_Magazine))
-                            .addGroup(P_MagazineLayout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Txt_Main_Theme_Magazine, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(Txt_Publication_Month_Magazine))
+                    .addGroup(P_MagazineLayout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Txt_Edition_Number_Magazine))
+                    .addGroup(P_MagazineLayout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Txt_Main_Theme_Magazine, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         P_MagazineLayout.setVerticalGroup(
             P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(P_MagazineLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(Txt_Title_Magazine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(Txt_Author_Magazine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_Publication_Year_Magazine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_Editorial_Magazine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Txt_Number_Pages_Magazine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(P_MagazineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Txt_Publication_Month_Magazine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20))
@@ -623,32 +453,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(P_Magazine, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, -1, -1));
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel11.setText("Titulo:");
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setText("Autor:");
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel13.setText("Año de Publicación:");
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel14.setText("Editorial:");
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel15.setText("Número de paginas:");
-
-        Txt_Title_Scientific.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        Txt_Author_Scientific.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        Txt_Publication_Year_Scientific.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        Txt_Editorial_Scientific.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        Txt_Number_Pages_Scientific.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        getContentPane().add(P_Magazine, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, -1, 100));
 
         Txt_Academic_Journal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
@@ -668,63 +473,19 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(P_Scientific_ArticleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(P_Scientific_ArticleLayout.createSequentialGroup()
-                        .addGroup(P_Scientific_ArticleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel11))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(P_Scientific_ArticleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Txt_Title_Scientific)
-                            .addComponent(Txt_Author_Scientific)))
-                    .addGroup(P_Scientific_ArticleLayout.createSequentialGroup()
                         .addComponent(jLabel22)
                         .addGap(13, 13, 13)
                         .addComponent(Txt_ORCID_Scientific))
-                    .addGroup(P_Scientific_ArticleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(P_Scientific_ArticleLayout.createSequentialGroup()
-                            .addGroup(P_Scientific_ArticleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(P_Scientific_ArticleLayout.createSequentialGroup()
-                                    .addComponent(jLabel13)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Txt_Publication_Year_Scientific))
-                                .addGroup(P_Scientific_ArticleLayout.createSequentialGroup()
-                                    .addComponent(jLabel14)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Txt_Editorial_Scientific))
-                                .addGroup(P_Scientific_ArticleLayout.createSequentialGroup()
-                                    .addComponent(jLabel15)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Txt_Number_Pages_Scientific, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)))
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(P_Scientific_ArticleLayout.createSequentialGroup()
-                            .addComponent(jLabel21)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(Txt_Academic_Journal))))
+                    .addGroup(P_Scientific_ArticleLayout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Txt_Academic_Journal, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         P_Scientific_ArticleLayout.setVerticalGroup(
             P_Scientific_ArticleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(P_Scientific_ArticleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(P_Scientific_ArticleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(Txt_Title_Scientific, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(P_Scientific_ArticleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(Txt_Author_Scientific, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(P_Scientific_ArticleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_Publication_Year_Scientific, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(P_Scientific_ArticleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_Editorial_Scientific, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(P_Scientific_ArticleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Txt_Number_Pages_Scientific, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(P_Scientific_ArticleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Txt_ORCID_Scientific, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22))
@@ -735,7 +496,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        getContentPane().add(P_Scientific_Article, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 170, -1, -1));
+        getContentPane().add(P_Scientific_Article, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, -1, -1));
 
         Btn_Save.setText("GUARDAR");
         Btn_Save.addActionListener(new java.awt.event.ActionListener() {
@@ -743,7 +504,92 @@ public class Principal extends javax.swing.JFrame {
                 Btn_SaveActionPerformed(evt);
             }
         });
-        getContentPane().add(Btn_Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 420, -1, -1));
+        getContentPane().add(Btn_Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 590, -1, -1));
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel23.setText("Titulo:");
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel24.setText("Autor:");
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel25.setText("Año de Publicación:");
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel26.setText("Editorial:");
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel27.setText("Número de paginas:");
+
+        Txt_Title.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        Txt_Author.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        Txt_Publication_Year.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        Txt_Editorial.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        Txt_Number_Pages.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        javax.swing.GroupLayout P_Basic_InformationLayout = new javax.swing.GroupLayout(P_Basic_Information);
+        P_Basic_Information.setLayout(P_Basic_InformationLayout);
+        P_Basic_InformationLayout.setHorizontalGroup(
+            P_Basic_InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(P_Basic_InformationLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(P_Basic_InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(P_Basic_InformationLayout.createSequentialGroup()
+                        .addGroup(P_Basic_InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel23))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(P_Basic_InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Txt_Title)
+                            .addComponent(Txt_Author)))
+                    .addGroup(P_Basic_InformationLayout.createSequentialGroup()
+                        .addGroup(P_Basic_InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(P_Basic_InformationLayout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Txt_Publication_Year))
+                            .addGroup(P_Basic_InformationLayout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Txt_Editorial))
+                            .addGroup(P_Basic_InformationLayout.createSequentialGroup()
+                                .addComponent(jLabel27)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Txt_Number_Pages, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        P_Basic_InformationLayout.setVerticalGroup(
+            P_Basic_InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(P_Basic_InformationLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(P_Basic_InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23)
+                    .addComponent(Txt_Title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(P_Basic_InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(Txt_Author, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(P_Basic_InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Txt_Publication_Year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(P_Basic_InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Txt_Editorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(P_Basic_InformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Txt_Number_Pages, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel27))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(P_Basic_Information, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -795,6 +641,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> Cmb_Book;
     private javax.swing.JComboBox<String> Cmb_Genre;
     private javax.swing.JPanel P_3_Rd;
+    private javax.swing.JPanel P_Basic_Information;
     private javax.swing.JPanel P_Book;
     private javax.swing.JPanel P_Magazine;
     private javax.swing.JPanel P_Main;
@@ -806,47 +653,27 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JRadioButton Rd_Scientific;
     private javax.swing.JRadioButton Rd_Show;
     private javax.swing.JTextField Txt_Academic_Journal;
-    private javax.swing.JTextField Txt_Author_Magazine;
-    private javax.swing.JTextField Txt_Author_Scientific;
-    private javax.swing.JTextField Txt_Autor_Book;
+    private javax.swing.JTextField Txt_Author;
     private javax.swing.JTextField Txt_Edition_Number_Magazine;
-    private javax.swing.JTextField Txt_Editorial_Book;
-    private javax.swing.JTextField Txt_Editorial_Magazine;
-    private javax.swing.JTextField Txt_Editorial_Scientific;
+    private javax.swing.JTextField Txt_Editorial;
     private javax.swing.JTextField Txt_ISBN_Book;
     private javax.swing.JTextField Txt_Main_Theme_Magazine;
-    private javax.swing.JTextField Txt_Number_Pages_Book;
-    private javax.swing.JTextField Txt_Number_Pages_Magazine;
-    private javax.swing.JTextField Txt_Number_Pages_Scientific;
+    private javax.swing.JTextField Txt_Number_Pages;
     private javax.swing.JTextField Txt_ORCID_Scientific;
     private javax.swing.JTextField Txt_Publication_Month_Magazine;
-    private javax.swing.JTextField Txt_Publication_Year_Book;
-    private javax.swing.JTextField Txt_Publication_Year_Magazine;
-    private javax.swing.JTextField Txt_Publication_Year_Scientific;
-    private javax.swing.JTextField Txt_Title_Book;
-    private javax.swing.JTextField Txt_Title_Magazine;
-    private javax.swing.JTextField Txt_Title_Scientific;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JTextField Txt_Publication_Year;
+    private javax.swing.JTextField Txt_Title;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     // End of variables declaration//GEN-END:variables
 }
