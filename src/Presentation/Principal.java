@@ -50,13 +50,18 @@ public class Principal extends javax.swing.JFrame {
             P_Show_Information.setVisible(true);
             P_3_Rd.setVisible(true);
             Btn_Save.setVisible(false);
+            Cmb_Genre.setVisible(false);
+            Txt_Gender.setVisible(true);
         } else {
+                        Cmb_Genre.setVisible(true);
+            Txt_Gender.setVisible(false);
             P_Show_Information.setVisible(false);
             P_3_Rd.setVisible(true);
             Btn_Save.setVisible(true);
         }
     }
 // Metodo que muestra su respectivo panel para la publicacion de un articulo
+
     private void Select_Book_Magazine_Sciencific() {
         if (Rd_Book.isSelected()) {
             P_Book.setVisible(true);
@@ -114,6 +119,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
+
     // Carga los generos al combobox utilizando el arraylist de la clase SaveInformation
     private void Load_Genres_Cmb() {
         HashMap<String, String> Genres = save_info.Get_HashMap_Genres();
@@ -121,6 +127,7 @@ public class Principal extends javax.swing.JFrame {
             Cmb_Genre.addItem(genre);
         }
     }
+
     // Metodo que carga los nombres de las publicaciones en un combobox
     private void Load_Publications_Cmb() {
         Cmb_Book.removeAllItems();
@@ -149,73 +156,77 @@ public class Principal extends javax.swing.JFrame {
         }
     }
 // Metodo utilizado para obtener toda la informacion de una publicacion y mostrarla en pantalla
+
     private void getPublicationInformationAndSet() {
         ArrayList<Book> Books = save_info.Get_Array_Books();
 
         String Title = (String) Cmb_Book.getSelectedItem();
+        if (Rd_Show.isSelected()) {
+            
+            
+            for (Book book : Books) {
+                if (book.getTitle().contains(Title)) {
+                    String Author = book.getAuthor();
+                    int Publication_Year = book.getPublication_Year();
+                    String Editorial = book.getEditorial();
+                    int Number_Pages = book.getNumber_Pages();
+                    String ISBN_Book = book.getISBN();
+                    String Genre = book.getGenre();
 
-        for (Book book : Books) {
-            if (book.getTitle().contains(Title)) {
-                String Author = book.getAuthor();
-                int Publication_Year = book.getPublication_Year();
-                String Editorial = book.getEditorial();
-                int Number_Pages = book.getNumber_Pages();
-                String ISBN_Book = book.getISBN();
-                String Genre = book.getGenre();
+                    Txt_Title.setText(Title);
+                    Txt_Author.setText(Author);
+                    Txt_Publication_Year.setText(String.valueOf(Publication_Year));
+                    Txt_Editorial.setText(Editorial);
+                    Txt_Number_Pages.setText(String.valueOf(Number_Pages));
+                    Txt_ISBN_Book.setText(ISBN_Book);
+                    Txt_Gender.setText(Genre);
 
-                Txt_Title.setText(Title);
-                Txt_Author.setText(Author);
-                Txt_Publication_Year.setText(String.valueOf(Publication_Year));
-                Txt_Editorial.setText(Editorial);
-                Txt_Number_Pages.setText(String.valueOf(Number_Pages));
-                Txt_ISBN_Book.setText(ISBN_Book);
-                Cmb_Genre.setSelectedItem(Genre);
-
+                }
             }
-        }
-        ArrayList<Magazine> Magazines = save_info.Get_Array_Magazine();
-        for (Magazine magazine : Magazines) {
-            if (magazine.getTitle().contains(Title)) {
-                String Author = magazine.getAuthor();
-                int Publication_Year = magazine.getPublication_Year();
-                String Editorial = magazine.getEditorial();
-                int Number_Pages = magazine.getNumber_Pages();
-                String Publication_Month = magazine.getPublication_Month();
-                int Edition_Number = magazine.getEdition_Number();
-                String Main_Theme = magazine.getMain_Theme();
+            ArrayList<Magazine> Magazines = save_info.Get_Array_Magazine();
+            for (Magazine magazine : Magazines) {
+                if (magazine.getTitle().contains(Title)) {
+                    String Author = magazine.getAuthor();
+                    int Publication_Year = magazine.getPublication_Year();
+                    String Editorial = magazine.getEditorial();
+                    int Number_Pages = magazine.getNumber_Pages();
+                    String Publication_Month = magazine.getPublication_Month();
+                    int Edition_Number = magazine.getEdition_Number();
+                    String Main_Theme = magazine.getMain_Theme();
 
-                Txt_Title.setText(Title);
-                Txt_Author.setText(Author);
-                Txt_Publication_Year.setText(String.valueOf(Publication_Year));
-                Txt_Editorial.setText(Editorial);
-                Txt_Number_Pages.setText(String.valueOf(Number_Pages));
-                Txt_Publication_Month_Magazine.setText(Publication_Month);
-                Txt_Edition_Number_Magazine.setText(String.valueOf(Edition_Number));
-                Txt_Main_Theme_Magazine.setText(Main_Theme);
+                    Txt_Title.setText(Title);
+                    Txt_Author.setText(Author);
+                    Txt_Publication_Year.setText(String.valueOf(Publication_Year));
+                    Txt_Editorial.setText(Editorial);
+                    Txt_Number_Pages.setText(String.valueOf(Number_Pages));
+                    Txt_Publication_Month_Magazine.setText(Publication_Month);
+                    Txt_Edition_Number_Magazine.setText(String.valueOf(Edition_Number));
+                    Txt_Main_Theme_Magazine.setText(Main_Theme);
 
+                }
             }
-        }
-        ArrayList<Scientific_Article> scientifics_article = save_info.Get_Array_Scientific_Article();
-        for (Scientific_Article scientific_article : scientifics_article) {
-            if (scientific_article.getTitle().contains(Title)) {
-                String Author = scientific_article.getAuthor();
-                int Publication_Year = scientific_article.getPublication_Year();
-                String Editorial = scientific_article.getEditorial();
-                int Number_Pages = scientific_article.getNumber_Pages();
-                String ORCID_Scientific = scientific_article.getORCID();
-                String Academic_Journal = scientific_article.getAcademic_Journal();
+            ArrayList<Scientific_Article> scientifics_article = save_info.Get_Array_Scientific_Article();
+            for (Scientific_Article scientific_article : scientifics_article) {
+                if (scientific_article.getTitle().contains(Title)) {
+                    String Author = scientific_article.getAuthor();
+                    int Publication_Year = scientific_article.getPublication_Year();
+                    String Editorial = scientific_article.getEditorial();
+                    int Number_Pages = scientific_article.getNumber_Pages();
+                    String ORCID_Scientific = scientific_article.getORCID();
+                    String Academic_Journal = scientific_article.getAcademic_Journal();
 
-                Txt_Title.setText(Title);
-                Txt_Author.setText(Author);
-                Txt_Publication_Year.setText(String.valueOf(Publication_Year));
-                Txt_Editorial.setText(Editorial);
-                Txt_Number_Pages.setText(String.valueOf(Number_Pages));
-                Txt_Academic_Journal.setText(ORCID_Scientific);
-                Txt_ORCID_Scientific.setText(String.valueOf(Academic_Journal));
+                    Txt_Title.setText(Title);
+                    Txt_Author.setText(Author);
+                    Txt_Publication_Year.setText(String.valueOf(Publication_Year));
+                    Txt_Editorial.setText(Editorial);
+                    Txt_Number_Pages.setText(String.valueOf(Number_Pages));
+                    Txt_Academic_Journal.setText(ORCID_Scientific);
+                    Txt_ORCID_Scientific.setText(String.valueOf(Academic_Journal));
+                }
             }
-        }
-
+        } 
     }
+
     // Metodo que se utiliza en otros metodos para que limpie los TextFields
     private void Clean_Txt_Data() {
         Txt_Title.setText("");
@@ -231,6 +242,7 @@ public class Principal extends javax.swing.JFrame {
         Txt_Academic_Journal.setText("");
     }
 // Obtiene la informacion de la publicacion y la guarda en el respectivo ArrayList
+
     private void Obtain_Data_And_Save() {
         String Title = Txt_Title.getText();
         String Author = Txt_Author.getText();
@@ -275,6 +287,7 @@ public class Principal extends javax.swing.JFrame {
             Clean_Txt_Data();
         }
     }
+
     // Metodo que se utiliza para mostrar la informacion basica en joptionpanels
     private void Show_Information(String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
 
@@ -307,6 +320,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         Txt_ISBN_Book = new javax.swing.JTextField();
         Cmb_Genre = new javax.swing.JComboBox<>();
+        Txt_Gender = new javax.swing.JTextField();
         P_Magazine = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         Txt_Main_Theme_Magazine = new javax.swing.JTextField();
@@ -443,6 +457,8 @@ public class Principal extends javax.swing.JFrame {
 
         Cmb_Genre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
+        Txt_Gender.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout P_BookLayout = new javax.swing.GroupLayout(P_Book);
         P_Book.setLayout(P_BookLayout);
         P_BookLayout.setHorizontalGroup(
@@ -457,7 +473,9 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(P_BookLayout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Cmb_Genre, 0, 257, Short.MAX_VALUE)))
+                        .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Txt_Gender)
+                            .addComponent(Cmb_Genre, 0, 257, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         P_BookLayout.setVerticalGroup(
@@ -470,7 +488,8 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(Cmb_Genre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Cmb_Genre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Txt_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -737,6 +756,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField Txt_Author;
     private javax.swing.JTextField Txt_Edition_Number_Magazine;
     private javax.swing.JTextField Txt_Editorial;
+    private javax.swing.JTextField Txt_Gender;
     private javax.swing.JTextField Txt_ISBN_Book;
     private javax.swing.JTextField Txt_Main_Theme_Magazine;
     private javax.swing.JTextField Txt_Number_Pages;
