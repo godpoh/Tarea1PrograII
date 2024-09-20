@@ -21,7 +21,7 @@ public class Father_Object {
     public Father_Object() {
         
     }
-
+    // Constructor del objeto padre
     public Father_Object(String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
         this.Title = Title;
         this.Author = Author;
@@ -29,6 +29,8 @@ public class Father_Object {
         this.Editorial = Editorial;
         this.Number_Pages = Number_Pages;
     }
+    
+    // Getter y Setter del objeto padre
 
     public String getTitle() {
         return Title;
@@ -70,10 +72,11 @@ public class Father_Object {
         this.Number_Pages = Number_Pages;
     }
     
+    // Metodo para mostrar un joptionpane con la informacion heredada(Default de todas los objetos)
     public void Show_Details(String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
         JOptionPane.showMessageDialog(null, "Titulo de la publicacion es: " + Title + " Autor es: " + Author + " Año de publicacion es: " + Publication_Year + " Editorial es: " + Editorial + " Numero de paginas es: " + Number_Pages, "Informacion", JOptionPane.INFORMATION_MESSAGE);
     }
-    
+    // Devuelve el costo de cada hoja
     public int Return_Cost(int QuantitySheets) {
         return QuantitySheets * 116;
     }

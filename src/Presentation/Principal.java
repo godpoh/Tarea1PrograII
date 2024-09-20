@@ -27,8 +27,10 @@ public class Principal extends javax.swing.JFrame {
         Load_Genres_Cmb();
     }
 
+    // Creacion de instacia para utilizar los getter y setter de los ArrayList de la clase SaveInformation
     private SaveInformation save_info = new SaveInformation();
 
+    // Metodo para ocultar por defecto paneles
     private void Hide_Items_Defualt() {
         P_Show_Information.setVisible(false);
         P_3_Rd.setVisible(false);
@@ -41,6 +43,7 @@ public class Principal extends javax.swing.JFrame {
         P_Basic_Information.setVisible(false);
 
     }
+// Metodo que oculta 1 seccion del programa(Publicacion, Mostracion de informacion de publicacion)
 
     private void Select_Save_Show() {
         if (Rd_Show.isSelected()) {
@@ -53,7 +56,7 @@ public class Principal extends javax.swing.JFrame {
             Btn_Save.setVisible(true);
         }
     }
-
+// Metodo que muestra su respectivo panel para la publicacion de un articulo
     private void Select_Book_Magazine_Sciencific() {
         if (Rd_Book.isSelected()) {
             P_Book.setVisible(true);
@@ -75,7 +78,7 @@ public class Principal extends javax.swing.JFrame {
         }
     }
 
-// Se crea un metodo que contienen Action Listeners, para actualizar a tiempo real lo que hacen los radio buttons
+// Se crea un metodo que contiene Action Listeners, para actualizar a tiempo real lo que hacen los radio buttons
     private void setupRdEventListeners() {
 
         Rd_Show.addActionListener(new java.awt.event.ActionListener() {
@@ -111,14 +114,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
-
+    // Carga los generos al combobox utilizando el arraylist de la clase SaveInformation
     private void Load_Genres_Cmb() {
         HashMap<String, String> Genres = save_info.Get_HashMap_Genres();
         for (String genre : Genres.keySet()) {
             Cmb_Genre.addItem(genre);
         }
     }
-
+    // Metodo que carga los nombres de las publicaciones en un combobox
     private void Load_Publications_Cmb() {
         Cmb_Book.removeAllItems();
         Cmb_Book.addItem("Seleccione una opción:");
@@ -145,7 +148,75 @@ public class Principal extends javax.swing.JFrame {
             }
         }
     }
+// Metodo utilizado para obtener toda la informacion de una publicacion y mostrarla en pantalla
+    private void getPublicationInformationAndSet() {
+        ArrayList<Book> Books = save_info.Get_Array_Books();
 
+        String Title = (String) Cmb_Book.getSelectedItem();
+
+        for (Book book : Books) {
+            if (book.getTitle().contains(Title)) {
+                String Author = book.getAuthor();
+                int Publication_Year = book.getPublication_Year();
+                String Editorial = book.getEditorial();
+                int Number_Pages = book.getNumber_Pages();
+                String ISBN_Book = book.getISBN();
+                String Genre = book.getGenre();
+
+                Txt_Title.setText(Title);
+                Txt_Author.setText(Author);
+                Txt_Publication_Year.setText(String.valueOf(Publication_Year));
+                Txt_Editorial.setText(Editorial);
+                Txt_Number_Pages.setText(String.valueOf(Number_Pages));
+                Txt_ISBN_Book.setText(ISBN_Book);
+                Cmb_Genre.setSelectedItem(Genre);
+
+            }
+        }
+        ArrayList<Magazine> Magazines = save_info.Get_Array_Magazine();
+        for (Magazine magazine : Magazines) {
+            if (magazine.getTitle().contains(Title)) {
+                String Author = magazine.getAuthor();
+                int Publication_Year = magazine.getPublication_Year();
+                String Editorial = magazine.getEditorial();
+                int Number_Pages = magazine.getNumber_Pages();
+                String Publication_Month = magazine.getPublication_Month();
+                int Edition_Number = magazine.getEdition_Number();
+                String Main_Theme = magazine.getMain_Theme();
+
+                Txt_Title.setText(Title);
+                Txt_Author.setText(Author);
+                Txt_Publication_Year.setText(String.valueOf(Publication_Year));
+                Txt_Editorial.setText(Editorial);
+                Txt_Number_Pages.setText(String.valueOf(Number_Pages));
+                Txt_Publication_Month_Magazine.setText(Publication_Month);
+                Txt_Edition_Number_Magazine.setText(String.valueOf(Edition_Number));
+                Txt_Main_Theme_Magazine.setText(Main_Theme);
+
+            }
+        }
+        ArrayList<Scientific_Article> scientifics_article = save_info.Get_Array_Scientific_Article();
+        for (Scientific_Article scientific_article : scientifics_article) {
+            if (scientific_article.getTitle().contains(Title)) {
+                String Author = scientific_article.getAuthor();
+                int Publication_Year = scientific_article.getPublication_Year();
+                String Editorial = scientific_article.getEditorial();
+                int Number_Pages = scientific_article.getNumber_Pages();
+                String ORCID_Scientific = scientific_article.getORCID();
+                String Academic_Journal = scientific_article.getAcademic_Journal();
+
+                Txt_Title.setText(Title);
+                Txt_Author.setText(Author);
+                Txt_Publication_Year.setText(String.valueOf(Publication_Year));
+                Txt_Editorial.setText(Editorial);
+                Txt_Number_Pages.setText(String.valueOf(Number_Pages));
+                Txt_Academic_Journal.setText(ORCID_Scientific);
+                Txt_ORCID_Scientific.setText(String.valueOf(Academic_Journal));
+            }
+        }
+
+    }
+    // Metodo que se utiliza en otros metodos para que limpie los TextFields
     private void Clean_Txt_Data() {
         Txt_Title.setText("");
         Txt_Author.setText("");
@@ -159,7 +230,7 @@ public class Principal extends javax.swing.JFrame {
         Txt_ORCID_Scientific.setText("");
         Txt_Academic_Journal.setText("");
     }
-
+// Obtiene la informacion de la publicacion y la guarda en el respectivo ArrayList
     private void Obtain_Data_And_Save() {
         String Title = Txt_Title.getText();
         String Author = Txt_Author.getText();
@@ -187,6 +258,7 @@ public class Principal extends javax.swing.JFrame {
             Magazine magazine = new Magazine(Month_Publication, Edition_Number, Main_Theme, Title, Author, Year_Publication, Editorial, Pages_Number);
             save_info.Add_Magazine(magazine);
 
+            Show_Information(Title, Author, Year_Publication, Editorial, Pages_Number);
             Load_Publications_Cmb();
             Clean_Txt_Data();
         }
@@ -198,20 +270,20 @@ public class Principal extends javax.swing.JFrame {
             Scientific_Article scientific_article = new Scientific_Article(ORCID, Academic_Journal, Title, Author, Year_Publication, Editorial, Pages_Number);
             save_info.Add_Scientific_Article(scientific_article);
 
+            Show_Information(Title, Author, Year_Publication, Editorial, Pages_Number);
             Load_Publications_Cmb();
             Clean_Txt_Data();
         }
     }
-
+    // Metodo que se utiliza para mostrar la informacion basica en joptionpanels
     private void Show_Information(String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
-        
+
         Father_Object father = new Father_Object();
         father.Show_Details(Title, Author, Publication_Year, Editorial, Number_Pages);
-        
+
         int cost = father.Return_Cost(Number_Pages);
         JOptionPane.showMessageDialog(null, "El costo del libro seria de: " + cost + " colones debido a que cada pagina tiene un precio de 116 colones.");
-        
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -295,6 +367,11 @@ public class Principal extends javax.swing.JFrame {
         Cmb_Book.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción:" }));
 
         Btn_ShowInf.setText("Mostrar informacion ");
+        Btn_ShowInf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_ShowInfActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout P_Show_InformationLayout = new javax.swing.GroupLayout(P_Show_Information);
         P_Show_Information.setLayout(P_Show_InformationLayout);
@@ -593,10 +670,14 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    // Evento en el boton guardar que utiliza el metodo Obtain_Data_And_Save
     private void Btn_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_SaveActionPerformed
         Obtain_Data_And_Save();
     }//GEN-LAST:event_Btn_SaveActionPerformed
+// Evento en el boton de mostrar informacion que utiliza el metodo getPublicationInformationAndSet
+    private void Btn_ShowInfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ShowInfActionPerformed
+        getPublicationInformationAndSet();
+    }//GEN-LAST:event_Btn_ShowInfActionPerformed
 
     /**
      * @param args the command line arguments

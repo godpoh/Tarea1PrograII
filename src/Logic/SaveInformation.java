@@ -25,7 +25,7 @@ public class SaveInformation {
     public SaveInformation() {
         Load_Genres_By_Default();
     }
-
+    // Metodo para cargar por default los generos junto a una descripcion utilizando un HashMap
     private void Load_Genres_By_Default() {
         Genres.put("Ficción", "Género narrativo que relata hechos imaginarios o inventados por el autor.");
         Genres.put("Ciencia Ficción", "Narraciones basadas en avances científicos o tecnológicos, a menudo situadas en el futuro o en otros mundos.");
@@ -39,6 +39,7 @@ public class SaveInformation {
         Genres.put("Poesía", "Expresión literaria a través de versos, que busca transmitir emociones, sentimientos e ideas utilizando lenguaje figurado y métrica.");
     }
 
+        // Getter y Setter de ArrayLists
     public void Add_Book(Book book) {
         Array_Books.add(book);
     }

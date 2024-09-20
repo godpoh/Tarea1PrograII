@@ -17,7 +17,7 @@ public class Magazine extends Father_Object {
     public Magazine() {
         
     }
-
+// Constructor del objeto 
     public Magazine(String Publication_Month, int Edition_Number, String Main_Theme, String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
         super(Title, Author, Publication_Year, Editorial, Number_Pages);
         this.Publication_Month = Publication_Month;
@@ -25,6 +25,7 @@ public class Magazine extends Father_Object {
         this.Main_Theme = Main_Theme;
     }
 
+    // Getter y Setter del objeto
     public String getPublication_Month() {
         return Publication_Month;
     }

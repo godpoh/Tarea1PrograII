@@ -16,13 +16,13 @@ public class Scientific_Article extends Father_Object {
     public Scientific_Article() {
         
     }
-
+    // Constructor del objeto
     public Scientific_Article(String ORCID, String Academic_Journal, String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
         super(Title, Author, Publication_Year, Editorial, Number_Pages);
         this.ORCID = ORCID;
         this.Academic_Journal = Academic_Journal;
     }
-
+    // Getter y Setter del objeto
     public String getORCID() {
         return ORCID;
     }
