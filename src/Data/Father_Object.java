@@ -30,8 +30,7 @@ public class Father_Object {
         this.Number_Pages = Number_Pages;
     }
     
-    // Getter y Setter del objeto padre
-
+    // Getters y Setters del objeto padre
     public String getTitle() {
         return Title;
     }

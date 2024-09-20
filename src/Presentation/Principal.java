@@ -43,8 +43,8 @@ public class Principal extends javax.swing.JFrame {
         P_Basic_Information.setVisible(false);
 
     }
+    
 // Metodo que oculta 1 seccion del programa(Publicacion, Mostracion de informacion de publicacion)
-
     private void Select_Save_Show() {
         if (Rd_Show.isSelected()) {
             P_Show_Information.setVisible(true);
@@ -53,29 +53,33 @@ public class Principal extends javax.swing.JFrame {
             Cmb_Genre.setVisible(false);
             Txt_Gender.setVisible(true);
         } else {
-                        Cmb_Genre.setVisible(true);
+            Clean_Txt_Data();
+            Cmb_Genre.setVisible(true);
             Txt_Gender.setVisible(false);
             P_Show_Information.setVisible(false);
             P_3_Rd.setVisible(true);
             Btn_Save.setVisible(true);
         }
     }
+    
 // Metodo que muestra su respectivo panel para la publicacion de un articulo
-
     private void Select_Book_Magazine_Sciencific() {
         if (Rd_Book.isSelected()) {
             P_Book.setVisible(true);
             P_Magazine.setVisible(false);
             P_Scientific_Article.setVisible(false);
             P_Basic_Information.setVisible(true);
+            Clean_Txt_Data();
         }
         if (Rd_Magazine.isSelected()) {
             P_Book.setVisible(false);
             P_Magazine.setVisible(true);
             P_Scientific_Article.setVisible(false);
             P_Basic_Information.setVisible(true);
+            Clean_Txt_Data();
         }
         if (Rd_Scientific.isSelected()) {
+            Clean_Txt_Data();
             P_Book.setVisible(false);
             P_Magazine.setVisible(false);
             P_Scientific_Article.setVisible(true);
@@ -155,15 +159,14 @@ public class Principal extends javax.swing.JFrame {
             }
         }
     }
+    
 // Metodo utilizado para obtener toda la informacion de una publicacion y mostrarla en pantalla
-
     private void getPublicationInformationAndSet() {
         ArrayList<Book> Books = save_info.Get_Array_Books();
 
         String Title = (String) Cmb_Book.getSelectedItem();
         if (Rd_Show.isSelected()) {
-            
-            
+
             for (Book book : Books) {
                 if (book.getTitle().contains(Title)) {
                     String Author = book.getAuthor();
@@ -224,7 +227,7 @@ public class Principal extends javax.swing.JFrame {
                     Txt_ORCID_Scientific.setText(String.valueOf(Academic_Journal));
                 }
             }
-        } 
+        }
     }
 
     // Metodo que se utiliza en otros metodos para que limpie los TextFields
@@ -240,9 +243,10 @@ public class Principal extends javax.swing.JFrame {
         Txt_Main_Theme_Magazine.setText("");
         Txt_ORCID_Scientific.setText("");
         Txt_Academic_Journal.setText("");
+        Txt_Gender.setText("");
     }
+    
 // Obtiene la informacion de la publicacion y la guarda en el respectivo ArrayList
-
     private void Obtain_Data_And_Save() {
         String Title = Txt_Title.getText();
         String Author = Txt_Author.getText();
@@ -252,13 +256,13 @@ public class Principal extends javax.swing.JFrame {
         if (Rd_Book.isSelected()) {
 
             String ISBN = Txt_ISBN_Book.getText();
-            String Genre = (String) Cmb_Book.getSelectedItem();
+            String Genre = (String) Cmb_Genre.getSelectedItem();
 
             Book book = new Book(ISBN, Genre, Title, Author, Year_Publication, Editorial, Pages_Number);
             save_info.Add_Book(book);
 
             Load_Publications_Cmb();
-            Show_Information(Title, Author, Year_Publication, Editorial, Pages_Number);
+            Show_Information(Title, Author, Year_Publication, Editorial, Pages_Number, Genre, null);
             Clean_Txt_Data();
         }
         if (Rd_Magazine.isSelected()) {
@@ -270,7 +274,7 @@ public class Principal extends javax.swing.JFrame {
             Magazine magazine = new Magazine(Month_Publication, Edition_Number, Main_Theme, Title, Author, Year_Publication, Editorial, Pages_Number);
             save_info.Add_Magazine(magazine);
 
-            Show_Information(Title, Author, Year_Publication, Editorial, Pages_Number);
+            Show_Information(Title, Author, Year_Publication, Editorial, Pages_Number, null, null);
             Load_Publications_Cmb();
             Clean_Txt_Data();
         }
@@ -282,14 +286,14 @@ public class Principal extends javax.swing.JFrame {
             Scientific_Article scientific_article = new Scientific_Article(ORCID, Academic_Journal, Title, Author, Year_Publication, Editorial, Pages_Number);
             save_info.Add_Scientific_Article(scientific_article);
 
-            Show_Information(Title, Author, Year_Publication, Editorial, Pages_Number);
+            Show_Information(Title, Author, Year_Publication, Editorial, Pages_Number, null, ORCID);
             Load_Publications_Cmb();
             Clean_Txt_Data();
         }
     }
 
     // Metodo que se utiliza para mostrar la informacion basica en joptionpanels
-    private void Show_Information(String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
+    private void Show_Information(String Title, String Author, int Publication_Year, String Editorial, int Number_Pages, String Genre, String ORCID) {
 
         Father_Object father = new Father_Object();
         father.Show_Details(Title, Author, Publication_Year, Editorial, Number_Pages);
@@ -297,6 +301,22 @@ public class Principal extends javax.swing.JFrame {
         int cost = father.Return_Cost(Number_Pages);
         JOptionPane.showMessageDialog(null, "El costo del libro seria de: " + cost + " colones debido a que cada pagina tiene un precio de 116 colones.");
 
+        if (Rd_Book.isSelected()) {
+            Clean_Txt_Data();
+            Book book = new Book();
+            book.Describe_Genre(Genre);
+        }
+        if (Rd_Magazine.isSelected()) {
+            Clean_Txt_Data();
+            Magazine magazine = new Magazine();
+            magazine.Calculate_Summary(Number_Pages, Title);
+        }
+
+        if (Rd_Scientific.isSelected()) {
+            Clean_Txt_Data();
+            Scientific_Article scientific = new Scientific_Article();
+            scientific.Citar(Author, Publication_Year, Title, Editorial, ORCID);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -345,9 +365,12 @@ public class Principal extends javax.swing.JFrame {
         Txt_Publication_Year = new javax.swing.JTextField();
         Txt_Editorial = new javax.swing.JTextField();
         Txt_Number_Pages = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        P_Main.setOpaque(false);
 
         BtnG_WTD.add(Rd_Save);
         Rd_Save.setText("Guardar ");
@@ -360,11 +383,11 @@ public class Principal extends javax.swing.JFrame {
         P_MainLayout.setHorizontalGroup(
             P_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(P_MainLayout.createSequentialGroup()
-                .addGap(346, 346, 346)
+                .addContainerGap()
                 .addComponent(Rd_Save)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Rd_Show)
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         P_MainLayout.setVerticalGroup(
             P_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,7 +399,9 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(P_Main, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 880, 30));
+        getContentPane().add(P_Main, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 220, 30));
+
+        P_Show_Information.setOpaque(false);
 
         Cmb_Book.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción:" }));
 
@@ -410,7 +435,9 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        getContentPane().add(P_Show_Information, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 200, 110));
+        getContentPane().add(P_Show_Information, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 200, 110));
+
+        P_3_Rd.setOpaque(false);
 
         BtnG_BFMC.add(Rd_Book);
         Rd_Book.setText("Libro");
@@ -432,7 +459,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(Rd_Magazine)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Rd_Scientific)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         P_3_RdLayout.setVerticalGroup(
             P_3_RdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,10 +474,16 @@ public class Principal extends javax.swing.JFrame {
 
         getContentPane().add(P_3_Rd, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 260, 30));
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        P_Book.setOpaque(false);
+
+        jLabel16.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("ISBN:");
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel17.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("Género:");
 
         Txt_ISBN_Book.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -475,7 +508,7 @@ public class Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(P_BookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Txt_Gender)
-                            .addComponent(Cmb_Genre, 0, 257, Short.MAX_VALUE))))
+                            .addComponent(Cmb_Genre, 0, 239, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         P_BookLayout.setVerticalGroup(
@@ -490,22 +523,30 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jLabel17)
                     .addComponent(Cmb_Genre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Txt_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         getContentPane().add(P_Book, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 330, 90));
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        P_Magazine.setOpaque(false);
+
+        jLabel18.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Tema Principal:");
 
         Txt_Main_Theme_Magazine.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         Txt_Edition_Number_Magazine.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel19.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("Número de Edición:");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel20.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setText("Mes de Publicación:");
 
         Txt_Publication_Month_Magazine.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -551,12 +592,18 @@ public class Principal extends javax.swing.JFrame {
 
         getContentPane().add(P_Magazine, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, -1, 100));
 
+        P_Scientific_Article.setOpaque(false);
+
         Txt_Academic_Journal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel21.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("Revista Académica:");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel22.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
         jLabel22.setText("ORCID:");
 
         Txt_ORCID_Scientific.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -594,27 +641,40 @@ public class Principal extends javax.swing.JFrame {
 
         getContentPane().add(P_Scientific_Article, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, -1, -1));
 
+        Btn_Save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/gtk-save.png"))); // NOI18N
         Btn_Save.setText("GUARDAR");
         Btn_Save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_SaveActionPerformed(evt);
             }
         });
-        getContentPane().add(Btn_Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 590, -1, -1));
+        getContentPane().add(Btn_Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 580, -1, -1));
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        P_Basic_Information.setOpaque(false);
+
+        jLabel23.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
         jLabel23.setText("Titulo:");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel24.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setText("Autor:");
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel25.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(0, 0, 0));
         jLabel25.setText("Año de Publicación:");
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel26.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(0, 0, 0));
         jLabel26.setText("Editorial:");
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel27.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(0, 0, 0));
         jLabel27.setText("Número de paginas:");
 
         Txt_Title.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -686,6 +746,9 @@ public class Principal extends javax.swing.JFrame {
         );
 
         getContentPane().add(P_Basic_Information, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bvfdgd.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 700));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -764,6 +827,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField Txt_Publication_Month_Magazine;
     private javax.swing.JTextField Txt_Publication_Year;
     private javax.swing.JTextField Txt_Title;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;

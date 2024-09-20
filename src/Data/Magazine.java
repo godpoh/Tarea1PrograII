@@ -4,19 +4,22 @@
  */
 package Data;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
 public class Magazine extends Father_Object {
-    
+
     String Publication_Month;
     int Edition_Number;
     String Main_Theme;
-    
+
     public Magazine() {
-        
+
     }
+    
 // Constructor del objeto 
     public Magazine(String Publication_Month, int Edition_Number, String Main_Theme, String Title, String Author, int Publication_Year, String Editorial, int Number_Pages) {
         super(Title, Author, Publication_Year, Editorial, Number_Pages);
@@ -49,7 +52,20 @@ public class Magazine extends Father_Object {
     public void setMain_Theme(String Main_Theme) {
         this.Main_Theme = Main_Theme;
     }
-    
-    
-    
+    // Metodo que se utiliza para calcular los capitulos, divide entre 10 la cantidad de paginas 
+    public void Calculate_Summary(int Number_Pages, String Title) {
+       
+        int totalPages = Number_Pages;
+
+
+        int chapters = totalPages / 10;
+        int sections = totalPages; 
+
+        String summaryMessage = String.format("La revista '%s' tiene un total de %d páginas.\n"
+                + "Esto equivale a %d capítulos y %d secciones.",
+                Title, totalPages, chapters, sections);
+
+        JOptionPane.showMessageDialog(null, summaryMessage, "Sumario de la Revista", JOptionPane.INFORMATION_MESSAGE);
+    }
+
 }

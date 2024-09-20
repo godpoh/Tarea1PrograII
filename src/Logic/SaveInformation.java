@@ -39,7 +39,7 @@ public class SaveInformation {
         Genres.put("Poesía", "Expresión literaria a través de versos, que busca transmitir emociones, sentimientos e ideas utilizando lenguaje figurado y métrica.");
     }
 
-        // Getter y Setter de ArrayLists
+        // Getters y Setter de ArrayLists
     public void Add_Book(Book book) {
         Array_Books.add(book);
     }
